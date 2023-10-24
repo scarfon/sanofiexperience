@@ -32,7 +32,7 @@ export default function Home() {
 	return (
 		<div className="">
 			<div className="flex justify-center">
-				<Image src="/Logo.svg" alt="Logo" width={500} height={50} />
+				<Image src="/logo.svg" alt="Logo" width={500} height={50} />
 			</div>
 			<div className="flex justify-around items-center">
 				{img && <Image src={img} alt="Nota" height={500} width={400} />}
