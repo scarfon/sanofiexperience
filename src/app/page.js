@@ -12,7 +12,6 @@ export default function Home() {
 	useEffect(() => {
 		const dbRefImgUrl = ref(rtdb, "nota/imgUrl");
 		onValue(dbRefImgUrl, (snapshot) => {
-			console.log(snapshot.val());
 			setImg(snapshot.val());
 		});
 	}, []);
