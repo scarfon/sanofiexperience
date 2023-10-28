@@ -8,6 +8,9 @@ export default function Home() {
 	const [img, setImg] = useState("");
 	const [imgProc, setImgProc] = useState("");
 	const [nota, setNota] = useState({});
+	const [loading, setLoading] = useState(false);
+	const [loadingImg, setLoadingImg] = useState(true);
+	const [loadingImgProc, setLoadingImgProc] = useState(true);
 
 	useEffect(() => {
 		const dbRefImgUrl = ref(rtdb, "nota/imgUrl");
@@ -28,15 +31,32 @@ export default function Home() {
 		});
 	}, []);
 
+	useEffect(() => {
+		if (img) {
+			setLoadingImg(false);
+		}
+		if (imgProc) {
+			setLoadingImgProc(false);
+		}
+	}, []);
+
+	useEffect(() => {
+		const dbRefLoading = ref(rtdb, "nota/start");
+		onValue(dbRefLoading, (snapshot) => {
+			setLoading(!snapshot.val());
+		});
+	}, []);
+
 	return (
 		<div className="">
-			<div className="flex justify-center">
+			<div className="flex justify-around ">
 				<Image src="/logo.svg" alt="Logo" width={500} height={50} />
+				<Image src="/a.png" alt="Logo" width={150} height={50} />
 			</div>
 			<div className="flex justify-around items-center">
 				{img && <Image src={img} alt="Nota" height={500} width={400} />}
 				{imgProc && <Image src={imgProc} alt="Nota" height={500} width={400} />}
-				{nota && (
+				{loading && (
 					<div className="p-4 bg-white rounded-lg shadow-md text-center flex flex-col gap-2">
 						<p className="text-2xl font-bold">Nota Processada com Sucesso! </p>
 						{nota.merchantName && (
